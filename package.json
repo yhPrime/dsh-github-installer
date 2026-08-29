@@ -1,7 +1,7 @@
 {
   "name": "dsh-github-installer",
   "description": "GitHub 仓库 / npm / Git 仓库一键安装卸载更新插件（dsh-std 标准组件）。Manage DeepSeek Harness plugins from a GitHub repo URL, npm name, or any git repo — install / uninstall / update.",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "type": "module",
   "main": "lib/index.js",
   "exports": {

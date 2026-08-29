@@ -62,7 +62,17 @@
         "name": "ghp-list",
         "spec": {
           "title": "列出已安装插件",
-          "description": "列出 profile 中所有已安装的第三方插件"
+          "description": "列出 profile 中所有已安装的第三方插件（不含网络元数据）"
+        }
+      },
+      {
+        "apiVersion": "commands.dsh/v1alpha1",
+        "kind": "Command",
+        "id": "io.github.yhprime.dsh-github-installer.list-full",
+        "name": "ghp-list-full",
+        "spec": {
+          "title": "列出已安装插件（含元数据与更新检测）",
+          "description": "列出已安装插件并补充图片/描述/星级/主页与更新检测（可选 force 强制刷新缓存）"
         }
       },
       {
