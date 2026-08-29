@@ -1,7 +1,7 @@
 {
   "name": "dsh-github-installer",
   "description": "GitHub 仓库一键安装：粘贴任意 GitHub 插件仓库网址即可安装到当前 web 配置（标准 dsh plugin add github:… 协议，同 dsh-market）。Install any DeepSeek Harness plugin from a GitHub repo URL.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
