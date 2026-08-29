@@ -1,0 +1,138 @@
+{
+  "$schema": "urn:dsh-std:community-draft:dsh-plugin:0.15",
+  "manifestVersion": "0.15",
+  "id": "io.github.yhprime.dsh-github-installer",
+  "name": "dsh-github-installer",
+  "version": "2.0.0",
+  "facets": {
+    "host": {
+      "entry": "lib/host.js",
+      "apiVersion": "v1alpha1"
+    }
+  },
+  "requires": {
+    "contracts": []
+  },
+  "permissions": [],
+  "contributes": {
+    "x-commands": [
+      {
+        "apiVersion": "commands.dsh/v1alpha1",
+        "kind": "Command",
+        "id": "io.github.yhprime.dsh-github-installer.install",
+        "name": "ghp-install",
+        "spec": {
+          "title": "安装插件",
+          "description": "从 GitHub 网址 / npm 包名 / 其他 Git 仓库安装一个插件到当前 web 配置",
+          "arguments": [
+            { "name": "target", "title": "仓库网址或包名", "required": true }
+          ]
+        }
+      },
+      {
+        "apiVersion": "commands.dsh/v1alpha1",
+        "kind": "Command",
+        "id": "io.github.yhprime.dsh-github-installer.uninstall",
+        "name": "ghp-uninstall",
+        "spec": {
+          "title": "卸载插件",
+          "description": "卸载一个已安装的第三方插件（受保护包除外）",
+          "arguments": [
+            { "name": "package", "title": "插件包名", "required": true }
+          ]
+        }
+      },
+      {
+        "apiVersion": "commands.dsh/v1alpha1",
+        "kind": "Command",
+        "id": "io.github.yhprime.dsh-github-installer.update",
+        "name": "ghp-update",
+        "spec": {
+          "title": "更新插件",
+          "description": "更新一个已安装的插件（Git 依赖重取 HEAD，npm 依赖更新到最新）",
+          "arguments": [
+            { "name": "package", "title": "插件包名", "required": true }
+          ]
+        }
+      },
+      {
+        "apiVersion": "commands.dsh/v1alpha1",
+        "kind": "Command",
+        "id": "io.github.yhprime.dsh-github-installer.list",
+        "name": "ghp-list",
+        "spec": {
+          "title": "列出已安装插件",
+          "description": "列出 profile 中所有已安装的第三方插件"
+        }
+      },
+      {
+        "apiVersion": "commands.dsh/v1alpha1",
+        "kind": "Command",
+        "id": "io.github.yhprime.dsh-github-installer.status",
+        "name": "ghp-status",
+        "spec": {
+          "title": "查询插件管理状态",
+          "description": "返回当前安装/卸载/更新进度与 std 适配器状态"
+        }
+      },
+      {
+        "apiVersion": "commands.dsh/v1alpha1",
+        "kind": "Command",
+        "id": "io.github.yhprime.dsh-github-installer.cancel",
+        "name": "ghp-cancel",
+        "spec": {
+          "title": "取消当前操作",
+          "description": "取消正在进行的安装/卸载/更新"
+        }
+      }
+    ],
+    "x-tools": [
+      {
+        "apiVersion": "tools.dsh/v1alpha1",
+        "kind": "Tool",
+        "id": "io.github.yhprime.dsh-github-installer.manage-plugin",
+        "name": "manage_plugin",
+        "spec": {
+          "title": "插件管理",
+          "description": "安装/卸载/更新/查询 DeepSeek Harness 插件（GitHub 网址、npm 包名或其他 Git 仓库）"
+        }
+      }
+    ],
+    "x-browser": [
+      {
+        "apiVersion": "browser.ui.dsh/v1alpha1",
+        "kind": "LocalModule",
+        "id": "io.github.yhprime.dsh-github-installer.browser",
+        "name": "browser",
+        "spec": {
+          "module": "lib/ui.js",
+          "requirements": [
+            {
+              "apiVersion": "ui.dsh/v1alpha1",
+              "kind": "ContributionHost",
+              "spec": {
+                "surfaces": [
+                  {
+                    "apiVersion": "browser.ui.dsh/v1alpha1",
+                    "kind": "SettingsSection",
+                    "mode": "local-module"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "subscriptions": [],
+  "license": "MIT",
+  "source": {
+    "repository": "https://github.com/yhPrime/dsh-github-installer.git"
+  },
+  "compat": {
+    "hosts": [
+      "@dsh-std/adapter-dsh"
+    ]
+  }
+}

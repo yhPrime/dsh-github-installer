@@ -1,4 +1,5 @@
-# dsh bundle patch: inserts this plugin into a profile's layer stack.
+# Loader ticket so `dsh plugin add` accepts this package as a DSH bundle.
+# The Community v0.15 FacetModule is activated by @dsh-std/adapter-dsh.
 - insert:
-    - id: ghp-installer
-      name: 'dsh-github-installer'
+    - id: dsh-github-installer
+      name: dsh-github-installer
