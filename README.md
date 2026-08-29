@@ -8,8 +8,8 @@
 
 - 纯 **dsh-std Community v0.15** 标准组件：`dsh-plugin.json` + host/browser facets，由 `@dsh-std/adapter-dsh` 激活，显示在 **设置 → 插件 → 标准组件** 清单
 - **安装**：GitHub 网址（含 monorepo `/tree/<分支>/<子目录>`）、`owner/repo`、npm 包名（`dshmarket`、`@scope/pkg`）、GitLab/Gitee 等其他 Git 仓库地址
-- **卸载 / 更新**：列出全部第三方插件（`@deepseek-ai/*`、`@dsh-std/*`、`dshmarket`、自身受保护不可卸载），一键卸载/更新（Git 依赖重取 HEAD，npm 依赖更新到最新）
-- 交互：**设置 → 插件安装**（标准 `SettingsSection`）+ 对话工具 **`manage_plugin`**（action: install / uninstall / update / status）
+- **卸载 / 更新**：列出全部第三方插件（`@deepseek-ai/*`、`@dsh-std/*`、`dshmarket`、自身受保护不可卸载），一键卸载/更新（Git 依赖重取 HEAD，npm 依赖更新到最新）；「检查更新」按钮强制从下载源检测，只有真有更新时插件才显示「更新」按钮
+- 交互：**设置 → 插件安装**（标准 `SettingsSection`，UI 走免会话同源 HTTP 通道）+ 对话工具 **`manage_plugin`**（action: install / uninstall / update / status）
 - 安装走标准 `dsh plugin add github:…` 协议（同 dsh-market），成功后自动对账 `dsh.profile.bundles`
 
 ## 安装 / Install
