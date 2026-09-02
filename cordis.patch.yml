@@ -1,5 +1,9 @@
-# Loader ticket so `dsh plugin add` accepts this package as a DSH bundle.
-# The Community v0.15 FacetModule is activated by @dsh-std/adapter-dsh.
+# Loader ticket so `dsh plugin add` accepts this package as a DSH bundle and
+# reconciles it into dsh.profile.bundles. The Cordis entry (lib/index.js) only
+# mounts the session-free same-origin HTTP API (/ghp-installer/*) that the
+# SettingsSection UI talks to — mirroring how dsh-market serves its UI.
+# The Community v0.15 facets (commands + tool + browser LocalModule) are
+# activated by @dsh-std/adapter-dsh and need no Cordis activation.
 - insert:
     - id: dsh-github-installer
       name: dsh-github-installer
