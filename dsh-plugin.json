@@ -3,7 +3,7 @@
   "manifestVersion": "0.15",
   "id": "io.github.yhprime.dsh-github-installer",
   "name": "dsh-github-installer",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "facets": {
     "host": {
       "entry": "lib/host.js",
