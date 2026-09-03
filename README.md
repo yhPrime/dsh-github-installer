@@ -11,6 +11,7 @@
 - **卸载 / 更新**：列出全部第三方插件（`@deepseek-ai/*`、`@dsh-std/*`、`dshmarket`、自身受保护不可卸载），一键卸载/更新（Git 依赖重取 HEAD，npm 依赖更新到最新）；「检查更新」按钮强制从下载源检测，只有真有更新时插件才显示「更新」按钮
 - 交互：**设置 → 插件安装**（标准 `SettingsSection`；UI 走免会话同源 HTTP API，与 dsh-market 的 Cordis 侧 API 同一模式）+ 对话工具 **`manage_plugin`**（action: install / uninstall / update / status）
 - 安装走标准 `dsh plugin add github:…` 协议（同 dsh-market），成功后自动对账 `dsh.profile.bundles`
+- **安装形态三态识别（v2.3.0）**：装完自动读取包内声明判定 —— `dsh.bundle.patch`（宿主端补丁 → cordis bundle，对账进 bundles）/ `dsh-plugin.json`（Community v0.15 标准组件 → 由 adapter 扫描激活，**无需**进 bundles）/ 两者皆无（普通依赖，安装器不干预）；结果按形态给出精确提示（`bundle` / `std` / `bundle+std` 徽标），STD 组件与 bundle 一样标注"重启 DSH 生效"
 
 ## 安装 / Install
 
@@ -47,7 +48,7 @@ status
 
 ## 工作原理 / How it works
 
-- **Host facet**（`lib/host.js`）：发布 7 个标准命令（`ghp-install` / `ghp-uninstall` / `ghp-update` / `ghp-list` / `ghp-list-full` / `ghp-status` / `ghp-cancel`）+ `manage_plugin` 工具；`lib/installer.js` 用桌面打包的 pnpm 管线执行（`node.exe` + `.desktop-bin/pnpm-runner.mjs` + 打包 pnpm，与 dsh-market 相同），完成后对账 `dsh.profile.bundles`
+- **Host facet**（`lib/host.js`）：发布 7 个标准命令（`ghp-install` / `ghp-uninstall` / `ghp-update` / `ghp-list` / `ghp-list-full` / `ghp-status` / `ghp-cancel`）+ `manage_plugin` 工具；`lib/installer.js` 用桌面打包的 pnpm 管线执行（`node.exe` + `.desktop-bin/pnpm-runner.mjs` + 打包 pnpm，与 dsh-market 相同），完成后仅对**含 `dsh.bundle.patch` 的包**对账 `dsh.profile.bundles`；纯 STD 组件（仅 `dsh-plugin.json`）作为普通依赖保留，由 adapter 激活
 - **Browser facet**（`lib/ui.js`）：通过标准 `ContributionHost` 注册 `SettingsSection`（出现在标准组件清单）。设置页没有可用的 agent 会话，而标准命令通道按会话执行（`executeCommand(contextId, line)` 要求 context 已 attached），无法直接从设置页调用——因此 UI 与宿主的全部数据交互走**免会话同源 HTTP API**（`/ghp-installer/*`，由组件 Cordis 侧 `lib/index.js` 挂在宿主 webServer 上），与 dsh-market 的 Cordis 侧 API 同一模式，UI 零会话依赖
 - **为何保留 Cordis loader ticket**：`cordis.patch.yml` 让 `dsh plugin add` 把本组件 reconcile 进 `dsh.profile.bundles`，从而激活 `lib/index.js` 挂载上述 HTTP API。这是产品级 UI 的取舍，不是协议要求——若未来宿主向设置页提供会话通道，UI 可平滑迁移为标准命令驱动，协议声明无需改动
 - 状态/进度通过 `/ghp-installer/status-poll` 轮询；单任务互斥，可取消
